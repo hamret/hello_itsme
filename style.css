@@ -1,35 +1,87 @@
+/* style.css */
+
+/* 기본 HTML 요소 및 페이지 전체 스타일 */
 body {
   margin: 0;
   padding: 0;
   font-family: 'Noto Sans KR', sans-serif;
-  background-color: #f4f7f8;
-  color: #333;
+  /* 초기 배경색과 텍스트색은 :root 변수에서 가져오므로 여기서는 별도 설정 불필요 */
 }
 
+/* --- 다크 모드 관련 CSS 변수 및 스타일 --- */
+:root {
+  /* 라이트 모드 기본 색상 */
+  --background-color: #ffffff; /* 전체 페이지 배경색 */
+  --text-color: #333333; /* 기본 텍스트 색상 */
+  --card-background: #f8f9fa; /* 카드, 플레이어, 다크 모드 토글 버튼 배경 */
+  --border-color: #ddd; /* 테두리, 슬라이더 트랙 색상 */
+  --button-bg: #007bff; /* 일반 버튼 배경색 (예: 파일 업로드 버튼) */
+  --button-text: white; /* 일반 버튼 텍스트색 */
+  --link-color: #007bff; /* 링크 색상 */
+  --title-box-bg: #4caf50; /* title-box 배경색 */
+  --title-box-text: white; /* title-box 텍스트색 */
+  --contact-box-bg: #e8f5e9; /* contact-box 배경색 */
+  --contact-box-text: #2e7d32; /* contact-box 텍스트색 */
+  --accent-color: #4caf50; /* 강조 색상 (초록 계열: nav-button 호버, progress bar, h3, 오디오 컨트롤 버튼 등) */
+}
+
+body.dark-mode {
+  /* 다크 모드 색상 */
+  --background-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --card-background: #2a2a2a;
+  --border-color: #444;
+  --button-bg: #8be9fd; /* 다크 모드용 버튼 배경 */
+  --button-text: #1a1a1a; /* 다크 모드용 버튼 텍스트 */
+  --link-color: #8be9fd;
+  --title-box-bg: #2e7d32; /* 다크 모드용 title-box 배경 */
+  --title-box-text: #e0e0e0;
+  --contact-box-bg: #3a3a3a;
+  --contact-box-text: #b0e0e6;
+  --accent-color: #8be9fd; /* 다크 모드용 강조 색상 */
+}
+
+/* 다크 모드 전환을 위한 전체적인 전환 효과 */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* --- 컨테이너 및 섹션 스타일 --- */
 .container {
-  max-width: 700px;
+  max-width: 800px;
   margin: 50px auto;
-  padding: 20px;
+  padding: 40px;
   text-align: center;
+  background-color: var(--background-color);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
+/* --- 타이틀 및 소개 텍스트 스타일 --- */
 .title-box {
   font-size: 2.2em;
   font-weight: bold;
-  background-color: #4caf50;
-  color: white;
+  background-color: var(--title-box-bg);
+  color: var(--title-box-text);
   padding: 20px;
   border-radius: 16px;
   margin-bottom: 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .intro-text {
   font-size: 1.1em;
   margin-bottom: 30px;
   line-height: 1.6;
+  color: var(--text-color);
+  transition: color 0.4s ease;
 }
 
+/* --- 정보 카드 스타일 --- */
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -39,12 +91,13 @@ body {
 }
 
 .info-card {
-  background-color: white;
+  background-color: var(--card-background);
+  color: var(--text-color);
   border-radius: 16px;
   padding: 20px;
   width: 180px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s;
+  transition: transform 0.2s, background-color 0.4s ease, color 0.4s ease;
 }
 
 .info-card:hover {
@@ -53,77 +106,89 @@ body {
 
 .info-card h3 {
   margin-top: 0;
-  color: #4caf50;
+  color: var(--accent-color);
+  transition: color 0.4s ease;
 }
 
+/* --- 연락처 상자 스타일 --- */
 .contact-box {
-  background-color: #e8f5e9;
+  background-color: var(--contact-box-bg);
   border-radius: 12px;
   padding: 15px;
   margin-bottom: 30px;
   font-size: 1em;
-  color: #2e7d32;
+  color: var(--contact-box-text);
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-.photo-button {
-  display: inline-block;
-  padding: 12px 24px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 30px;
+.contact-box p {
+  color: var(--contact-box-text);
+  transition: color 0.4s ease;
+}
+
+.contact-box a {
+  color: var(--link-color);
   text-decoration: none;
-  font-size: 1em;
-  transition: background-color 0.3s;
+  transition: color 0.4s ease;
+}
+.contact-box a:hover {
+  text-decoration: underline;
 }
 
-.photo-button:hover {
-  background-color: #388e3c;
+/* --- 버튼 그룹 및 내비게이션 버튼 스타일 --- */
+.button-group {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 }
+
 .nav-button {
   display: inline-block;
   padding: 12px 24px;
-  background-color: #ffffff;
-  border: 2px solid #4caf50;
-  color: #4caf50;
+  background-color: var(--button-bg);
+  border: 2px solid var(--accent-color);
+  color: var(--button-text);
   border-radius: 30px;
-  margin: 8px;
   text-decoration: none;
   font-weight: 500;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
 }
 
 .nav-button:hover {
-  background-color: #4caf50;
+  background-color: var(--accent-color);
   color: white;
 }
+
+/* --- 뒤로 가기 버튼 스타일 (다른 페이지에서 사용) --- */
 .back-button {
   position: fixed;
   top: 20px;
   left: 20px;
   text-decoration: none;
-  color: #4caf50;
+  color: var(--accent-color);
   font-weight: bold;
-  background: white;
+  background: var(--card-background);
   padding: 8px 12px;
   border-radius: 6px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   z-index: 1000;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.container {
-  max-width: 800px;
-  margin: auto;
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.back-button:hover {
+  background-color: var(--accent-color);
+  color: white;
 }
+
+/* --- 제목 및 리스트 스타일 (다른 페이지에서 사용) --- */
 h1, h2 {
-  border-bottom: 2px solid #4CAF50;
+  border-bottom: 2px solid var(--accent-color);
   padding-bottom: 10px;
   margin-bottom: 20px;
+  color: var(--text-color);
+  transition: color 0.4s ease, border-color 0.4s ease;
 }
 ul {
   list-style: none;
@@ -133,19 +198,271 @@ li {
   margin-bottom: 12px;
   padding-left: 16px;
   position: relative;
+  color: var(--text-color);
+  transition: color 0.4s ease;
 }
 li::before {
   content: "•";
   position: absolute;
   left: 0;
-  color: #4CAF50;
+  color: var(--accent-color);
   font-size: 1.2em;
   line-height: 1;
+  transition: color 0.4s ease;
 }
 a {
-  color: #4CAF50;
+  color: var(--link-color);
   text-decoration: none;
+  transition: color 0.4s ease;
 }
 a:hover {
   text-decoration: underline;
+}
+
+
+/* --- 다크 모드 토글 버튼 스타일 --- */
+.theme-toggle-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: var(--card-background);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  z-index: 100;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--text-color);
+  color: var(--card-background);
+}
+
+.theme-toggle-btn span {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* --- 오디오 플레이어 관련 CSS 스타일 (모던한 느낌으로 조정) --- */
+.audio-player-container {
+  font-family: 'Noto Sans KR', sans-serif;
+  width: 400px; /* 너비를 약간 넓혀 더 시원한 느낌 */
+  margin: 40px auto 20px auto; /* 상단 마진을 더 주어 구분선과 여유 공간 확보 */
+  padding: 25px; /* 패딩을 늘려 여백 확보 */
+  border: 1px solid var(--border-color);
+  border-radius: 12px; /* 카드와 유사하게 둥근 모서리 */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* 그림자 강화 */
+  background-color: var(--card-background);
+  text-align: center;
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.player-controls {
+  display: flex;
+  flex-direction: column; /* 세로 방향으로 정렬 */
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* 버튼 그룹 간의 간격 */
+  margin-bottom: 20px;
+}
+
+.main-player-buttons { /* 이전/재생/다음 버튼 그룹 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* 버튼 사이 간격 */
+  width: 100%; /* 부모 너비에 맞춤 */
+}
+
+.control-btn {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px; /* 더 둥근 알약형 버튼 */
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  min-width: 90px;
+}
+
+.control-btn:hover:not(:disabled) {
+  background-color: #388e3c; /* 호버 시 약간 어두운 강조색 */
+  transform: translateY(-2px); /* 약간 뜨는 효과 */
+}
+
+.control-btn:active:not(:disabled) {
+  transform: translateY(0); /* 클릭 시 원위치 */
+}
+
+.control-btn:disabled {
+  background-color: #cccccc;
+  color: #888888;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+#playPauseBtn {
+  width: 50px; /* 완벽한 원형을 위해 너비와 높이 동일하게 */
+  height: 50px;
+  padding: 0;
+  border-radius: 50%; /* 완벽한 원형 */
+  background-color: var(--accent-color);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+#playPauseBtn:hover:not(:disabled) {
+  background-color: #388e3c;
+  transform: translateY(-2px);
+}
+#playPauseBtn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+#playPauseBtn .play-icon, #playPauseBtn .pause-icon {
+  font-size: 24px;
+  line-height: 1;
+  display: block; /* span이 block 요소가 되어 중앙 정렬이 더 잘 되도록 */
+}
+/* 재생 아이콘 (삼각형)은 기본적으로 중앙이 약간 맞지 않을 수 있어 미세 조정 */
+#playPauseBtn .play-icon {
+  transform: translateX(2px); /* 재생 아이콘을 오른쪽으로 살짝 이동 */
+}
+
+
+#audioFileInput {
+  margin-bottom: 20px;
+  width: calc(100% - 20px);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 8px 10px;
+  background-color: var(--background-color);
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+}
+#audioFileInput::-webkit-file-upload-button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+#audioFileInput::-webkit-file-upload-button:hover {
+  background-color: var(--link-color);
+}
+
+
+.progress-bar-container {
+  width: 100%;
+  height: 6px; /* 두께를 얇게 하여 더 모던하게 */
+  background-color: var(--border-color);
+  border-radius: 3px;
+  margin: 25px 0;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.4s ease;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: #28a745; /* 재생 바 색상은 고정된 초록색으로 유지 (강조색과 유사) */
+  border-radius: 3px;
+  transition: width 0.1s linear;
+}
+
+.current-time, .duration-time {
+  position: absolute;
+  top: -22px;
+  font-size: 13px;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: color 0.4s ease;
+}
+
+.current-time {
+  left: 0;
+}
+
+.duration-time {
+  right: 0;
+}
+
+.volume-speed-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 25px;
+  flex-wrap: wrap;
+}
+
+.volume-speed-controls label {
+  font-size: 14px;
+  color: var(--text-color);
+  transition: color 0.4s ease;
+}
+
+#volumeSlider {
+  width: 120px;
+  -webkit-appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border-color);
+  outline: none;
+  transition: background-color 0.4s ease;
+}
+#volumeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  cursor: pointer;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+  transition: background-color 0.4s ease;
+}
+#volumeSlider::-moz-range-thumb { /* Firefox 전용 스타일 */
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  cursor: pointer;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+  border: none;
+  transition: background-color 0.4s ease;
+}
+#volumeSlider::-moz-range-track { /* Firefox 전용 스타일 */
+  background: var(--border-color);
+  height: 4px;
+  border-radius: 2px;
+  transition: background-color 0.4s ease;
+}
+
+#speedSlider {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-background);
+  color: var(--text-color);
+  font-size: 0.95em;
+  cursor: pointer;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+#speedSlider option {
+  background-color: var(--card-background);
+  color: var(--text-color);
 }
